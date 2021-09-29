@@ -1,23 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { useState } from 'react';
+import HomePage from './pages/HomePage';
+import Navbar from './components/Navbar';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
+// import ProtectedRoute from './components/ProtectedRoute';
+
+function App(props) {
+
+  const [user, setUser] = useState(props.user);
+  console.log('App js:', user);
+
+  const addUser = user => {
+    setUser(user);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar user={user} setUser={addUser}/>
+      <Switch>
+          {/* <ProtectedRoute 
+            exact path='/my-tones'
+            user={user}
+            component={MyAudioFileListPage}
+          /> */}
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/signup" render={props => <Signup setUser={addUser} {...props} />} />
+          <Route exact path="/login" render={props => <Login setUser={addUser} {...props} />} />
+      </Switch>
     </div>
   );
 }
