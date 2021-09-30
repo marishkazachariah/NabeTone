@@ -21,7 +21,9 @@ export default function AudioFilesPage() {
 	}
 
 	useEffect(() => {
+        let isMounted = true;  
 		getAllAudioFiles();
+        return () => { isMounted = false };
 	}, [])
 
 	return (

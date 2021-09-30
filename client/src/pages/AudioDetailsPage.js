@@ -19,7 +19,9 @@ export default function AudioDetailsPage(props) {
 	}
 
 	useEffect(() => {
+        let isMounted = true;  
 		getAudioFile();
+        return () => { isMounted = false };
 	}, [])
 
     const deleteProject = () => {
