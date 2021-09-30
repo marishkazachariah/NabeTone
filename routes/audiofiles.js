@@ -57,4 +57,11 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
+router.delete('/:id', (req, res, next) => {
+	AudioFile.findByIdAndDelete(req.params.id)
+		.then(() => {
+			res.status(200).json({ message: 'project deleted' });
+		})
+});
+
 module.exports = router;

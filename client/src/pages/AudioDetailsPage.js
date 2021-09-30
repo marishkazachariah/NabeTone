@@ -22,6 +22,16 @@ export default function AudioDetailsPage(props) {
 		getAudioFile();
 	}, [])
 
+    const deleteProject = () => {
+		axios.delete(`${API_URL}/api/audiofiles/${audioFileId}`)
+			.then(() => {
+				// redirect (for now) to Audio File List
+                // TODO: redirect to map/profile dashboard
+				props.history.push('/tones');
+			})
+			.catch(err => console.log(err));
+	}
+
     return (
         <div>
             {audioFile && (
@@ -30,6 +40,7 @@ export default function AudioDetailsPage(props) {
                     <div>
                         <audio src={audioFile.audioPath} controls />
                     </div>
+                    <button onClick={deleteProject}>Delete this project 🗑</button>
 				</>
 			)}
         </div>
