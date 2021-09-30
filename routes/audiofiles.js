@@ -3,9 +3,10 @@ const AudioFile = require("../models/AudioFile");
 const fileUploader = require("../config/cloudinary");
 
 // get all audio files
-router.get("/tones", (req, res, next) => {
+router.get("/", (req, res, next) => {
   AudioFile.find()
     .then((audioFiles) => {
+      console.log(audioFiles);
       res.status(200).json(audioFiles);
     })
     .catch((err) => next(err));
@@ -42,7 +43,7 @@ router.post('/tones/add', (req, res, next) => {
 })
 
 
-router.get("/tones/:id", (req, res, next) => {
+router.get("/:id", (req, res, next) => {
   AudioFile.findById(req.params.id)
     .then((audioFile) => {
       if (!audioFile) {
@@ -54,10 +55,6 @@ router.get("/tones/:id", (req, res, next) => {
     .catch((err) => {
       next(err);
     });
-});
-
-router.get("/", (req, res, next) => {
-  res.json("All good in here");
 });
 
 module.exports = router;

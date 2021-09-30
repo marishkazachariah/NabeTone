@@ -12,16 +12,15 @@ export default function AudioFilesPage() {
 
 	const getAllAudioFiles = () => {
 		// get request to the server
-		axios.get(`${API_URL}/api/projects`)
+		axios.get(`${API_URL}/api/audiofiles`)
 			.then(response => {
-				console.log(response)
+				console.log(response.data)
 				setAudioFiles(response.data);
 			})
 			.catch(err => console.log(err));
 	}
 
 	useEffect(() => {
-		// get all the projects from the server
 		getAllAudioFiles();
 	}, [])
 
