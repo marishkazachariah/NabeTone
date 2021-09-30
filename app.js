@@ -35,8 +35,8 @@ app.use(
 
 // 👇 Start handling routes here
 // Contrary to the views version, all routes are controlled from the routes/index.js
-const index = require("./routes/index");
-app.use("/", index);
+const audioFiles = require("./routes/audiofiles");
+app.use("/api/audiofiles", audioFiles);
 
 const auth = require("./routes/auth");
 app.use("/api/auth", auth);

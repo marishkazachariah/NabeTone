@@ -25,6 +25,9 @@ export default function Navbar(props) {
               <Link to="/tones">
                 <li>All Tones</li>
               </Link>
+              <Link to="/tones/add">
+                <li>Add Tone</li>
+              </Link>
               <Link to="/" onClick={() => handleLogout()}>
                 <li>Logout</li>
               </Link>

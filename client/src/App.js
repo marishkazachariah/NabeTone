@@ -6,7 +6,10 @@ import HomePage from './pages/HomePage';
 import Navbar from './components/Navbar';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-// import ProtectedRoute from './components/ProtectedRoute';
+import AudioFilesPage from './pages/AudioFilesPage';
+import AddAudioFile from './components/AddAudioFile';
+import ProtectedRoute from './components/ProtectedRoute';
+import AudioDetailsPage from './pages/AudioDetailsPage';
 
 function App(props) {
 
@@ -29,6 +32,9 @@ function App(props) {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/signup" render={props => <Signup setUser={addUser} {...props} />} />
           <Route exact path="/login" render={props => <Login setUser={addUser} {...props} />} />
+          <ProtectedRoute exact path="/tones" user={user} component={AudioFilesPage} />
+          <Route exact path='/tones/add' component={AddAudioFile} />
+          <Route exact path="/tones/:id" component={AudioDetailsPage} />
       </Switch>
     </div>
   );

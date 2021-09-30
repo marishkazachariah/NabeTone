@@ -1,8 +1,9 @@
 const { Schema, model } = require("mongoose");
 
 const audioFileSchema = new Schema({
-  name: String,
-  audioFile: String,
+  title: String,
+  audioPath: String,
+  audioName: String,
   author: [
     {
       type: Schema.Types.ObjectId,
