@@ -15,7 +15,6 @@ router.get("/", (req, res, next) => {
 
 // get user's audio files
 router.get("/useraudio/:id", (req, res, next) => {
-  console.log("user: ", req.user._id);
   AudioFile.find({ author: req.user._id })
   .then((audioFiles) => {
     console.log(audioFiles);
@@ -78,14 +77,13 @@ router.get("/:id", (req, res, next) => {
 router.delete('/:id', (req, res) => {
   //TODO only user can delete their own audio files
   const audioFileId = req.params.id;
-  //console.log("this is the user file", audioFileId);
-  const user = req.user;
-  console.log("the USER is: ",user);
+  // TODO cannot seem to get req.user in router.delete
+  const userIndex = req.body;
+  console.log("user is: ", userIndex);
 	// AudioFile.findByIdAndDelete(audioFileId)
 	// 	.then(() => {
 	// 		res.status(200).json({ message: 'project deleted' });
 	// 	})
-
 });
 
 module.exports = router;

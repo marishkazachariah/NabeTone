@@ -86,6 +86,14 @@ app.use(passport.session());
 
 // end of passport configuration
 
+// app.use(
+//     cors({
+//          origin: "http://localhost:3000", // allow to server to accept request from different origin
+//          methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//          credentials: true, // allow session cookie from browser to pass through
+//    })
+// );
+
 // 👇 Start handling routes here
 // Contrary to the views version, all routes are controlled from the routes/index.js
 const audioFiles = require("./routes/audiofiles");

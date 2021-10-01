@@ -45,7 +45,7 @@ export default function Navbar(props) {
               </Link>
             </>
           )}
-          <Link to="#map">
+          <Link to="/map">
             <li>Locate NodeTones</li>
           </Link>
         </ul>

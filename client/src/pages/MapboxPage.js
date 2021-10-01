@@ -17,12 +17,24 @@ export default function MapboxPage() {
             style: 'mapbox://styles/mapbox/streets-v11',
             center:[lng, lat],
             zoom: zoom
-        })
-    })
+        });
+    });
+
+    useEffect(() => {
+        if (!map.current) return;
+        map.current.on('move', () => {
+            setLng(map.current.getCenter().llng.toFixed(4));
+            setLat(map.current.getCenter().lat.toFixed(4));
+            setZoom(map.current.getZoom().toFixed(2));
+        });
+    });
+
     return (
-        <div class="map-view" id="map-view">
-        <div id="map"></div> 
-        <script src="../../public/js/mapbox.js"></script>	
+        <>
+        <div class="sidebar">
+        Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
         </div>
+        <div ref={mapContainer} className="map-container" />
+        </>
     )  
 }
