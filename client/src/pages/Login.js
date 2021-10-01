@@ -10,7 +10,7 @@ export default function Login(props) {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		console.log(username, password)
+		// console.log(username, password)
 
 		login(username, password)
 			.then(response => {

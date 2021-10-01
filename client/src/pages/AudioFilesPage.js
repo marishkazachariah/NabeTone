@@ -31,6 +31,5 @@ export default function AudioFilesPage() {
 			<h1>All NabeTones</h1>
 			{audioFiles.map(audioFile => <AudioFileCard key={audioFile._id} {...audioFile} />)}
 		</div>
-
 	)
 }

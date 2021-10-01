@@ -1,15 +1,26 @@
 const router = require("express").Router();
 const AudioFile = require("../models/AudioFile");
 const fileUploader = require("../config/cloudinary");
+const User = require("../models/User");
 
 // get all audio files
 router.get("/", (req, res, next) => {
   AudioFile.find()
     .then((audioFiles) => {
-      console.log(audioFiles);
+      // console.log(audioFiles);
       res.status(200).json(audioFiles);
     })
     .catch((err) => next(err));
+});
+
+// get user's audio files
+router.get("/useraudio/:id", (req, res, next) => {
+  AudioFile.find({ author: req.session.user._id })
+  .then((audioFiles) => {
+    console.log(audioFiles);
+    res.status(200).json(audioFiles)
+  })
+  .catch((err) => next(err));
 });
 
 // POST '/api/upload' => Route that will receive an image, send it to Cloudinary via the fileUploader and return the image URL
@@ -29,9 +40,17 @@ router.post("/upload", fileUploader.single("audioPath"), (req, res, next) => {
 router.post('/tones/add', (req, res, next) => {
 	const { title, audioPath } = req.body;
   console.log(req.body);
+  const location = {
+    address: {
+      street: "",
+      postalCode: "",
+      city: "",
+    }
+  };
 	AudioFile.create({
 		title,
 		audioPath,
+    author: req.session.user._id,
 	})
 		.then(audioFile => {
 			// we return http status code 201 - created
@@ -58,6 +77,7 @@ router.get("/:id", (req, res, next) => {
 });
 
 router.delete('/:id', (req, res, next) => {
+  //TODO only user can delete their own audio files
 	AudioFile.findByIdAndDelete(req.params.id)
 		.then(() => {
 			res.status(200).json({ message: 'project deleted' });
