@@ -20,10 +20,8 @@ export default function AudioFilesPage() {
 			.catch(err => console.log(err));
 	}
 
-	useEffect(() => {
-        let isMounted = true;  
+	useEffect(() => { 
 		getAllAudioFiles();
-        return () => { isMounted = false };
 	}, [])
 
 	return (

@@ -25,11 +25,6 @@ function App(props) {
     <div className="App">
       <Navbar user={user} setUser={addUser}/>
       <Switch>
-          {/* <ProtectedRoute 
-            exact path='/my-tones'
-            user={user}
-            component={MyAudioFileListPage}
-          /> */}
           <Route exact path="/" component={HomePage} />
           <Route exact path="/signup" render={props => <Signup setUser={addUser} {...props} />} />
           <Route exact path="/login" render={props => <Login setUser={addUser} {...props} />} />

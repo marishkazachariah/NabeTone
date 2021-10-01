@@ -23,10 +23,8 @@ router.get("/useraudio/:id", (req, res, next) => {
   .catch((err) => next(err));
 });
 
-// POST '/api/upload' => Route that will receive an image, send it to Cloudinary via the fileUploader and return the image URL
 router.post("/upload", fileUploader.single("audioPath"), (req, res, next) => {
   // console.log('file is: ', req.file)
-
   if (!req.file) {
     next(new Error("No file uploaded!"));
     return;
@@ -76,12 +74,21 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', (req, res) => {
   //TODO only user can delete their own audio files
-	AudioFile.findByIdAndDelete(req.params.id)
-		.then(() => {
-			res.status(200).json({ message: 'project deleted' });
-		})
+  const audioFileId = req.params.id;
+  // console.log("this is the user file", audioFileId);
+  const user = req.session;
+  console.log(user);
+  // const query = {_id: audioFileId};	
+	// if (req.user._id === audioFileId) {
+	// 	query.owner = req.session.user._id;
+	// }
+
+	// AudioFile.findByIdAndDelete(req.params.id)
+	// 	.then(() => {
+	// 		res.status(200).json({ message: 'project deleted' });
+	// 	})
 });
 
 module.exports = router;
