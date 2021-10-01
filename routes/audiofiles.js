@@ -15,7 +15,8 @@ router.get("/", (req, res, next) => {
 
 // get user's audio files
 router.get("/useraudio/:id", (req, res, next) => {
-  AudioFile.find({ author: req.session.user._id })
+  console.log("user: ", req.user._id);
+  AudioFile.find({ author: req.user._id })
   .then((audioFiles) => {
     console.log(audioFiles);
     res.status(200).json(audioFiles)
@@ -48,7 +49,7 @@ router.post('/tones/add', (req, res, next) => {
 	AudioFile.create({
 		title,
 		audioPath,
-    author: req.session.user._id,
+    author: req.user._id,
 	})
 		.then(audioFile => {
 			// we return http status code 201 - created
@@ -77,18 +78,14 @@ router.get("/:id", (req, res, next) => {
 router.delete('/:id', (req, res) => {
   //TODO only user can delete their own audio files
   const audioFileId = req.params.id;
-  // console.log("this is the user file", audioFileId);
-  const user = req.session;
-  console.log(user);
-  // const query = {_id: audioFileId};	
-	// if (req.user._id === audioFileId) {
-	// 	query.owner = req.session.user._id;
-	// }
-
-	// AudioFile.findByIdAndDelete(req.params.id)
+  //console.log("this is the user file", audioFileId);
+  const user = req.user;
+  console.log("the USER is: ",user);
+	// AudioFile.findByIdAndDelete(audioFileId)
 	// 	.then(() => {
 	// 		res.status(200).json({ message: 'project deleted' });
 	// 	})
+
 });
 
 module.exports = router;

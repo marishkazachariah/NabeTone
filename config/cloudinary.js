@@ -15,7 +15,7 @@ const storage = new CloudinaryStorage({
         resource_type: "auto",
 		allowed_formats: 'mp3, m4a, wav',
         use_filename: true,
-        unique_filename: false,
+        unique_filename: true,
 	}
 });
 
