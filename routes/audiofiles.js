@@ -41,7 +41,6 @@ router.post('/tones/add', (req, res, next) => {
 	AudioFile.create({
 		title,
 		audioPath,
-    audioName,
     location,
     author: req.user._id,
 	})
@@ -68,6 +67,11 @@ router.get("/:id", (req, res, next) => {
       next(err);
     });
 });
+
+// mapbox get location
+
+
+// Deletion of audio file without cloudinary
 
 // router.delete('/:id', (req, res, next) => {
 //   const audioFileId = req.params.id;  

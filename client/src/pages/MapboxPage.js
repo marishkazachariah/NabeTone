@@ -1,7 +1,13 @@
 import React from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import { useRef, useState, useEffect } from 'react';
+// import Geocoder from 'react-mapbox-gl-geocoder';
 mapboxgl.accessToken = "pk.eyJ1IjoidHJhbnNpcmVudCIsImEiOiJja255bXRtZGowbHF0MnBvM3U4d2J1ZG5vIn0.IVcxB9Xw6Tcc8yHGdK_0zA";
+const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding")
+// const mapBoxToken = process.env.MAPBOX_TOKEN;
+const geocoder = mbxGeocoding({accessToken: mapboxgl.accessToken});
+
+
 export default function MapboxPage() {
     const mapContainer = useRef(null);
     const map = useRef(null);
@@ -11,6 +17,9 @@ export default function MapboxPage() {
 
     // input field of address
     const [location, setLocation] = useState("");
+    const [coordinates, setCoordinates] = useState([13.3983, 52.5124]);
+    let locationLng;
+    let locationLat;
 
     useEffect(() => {
         // initialize map only once
@@ -18,57 +27,54 @@ export default function MapboxPage() {
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/streets-v11',
-            center:[lng, lat],
+            center:[coordinates[0], coordinates[1]],
             zoom: zoom
         });
     });
-
-    // setting up the initial map
-    // useEffect(() => {
-    //     if (!map.current) return;
-    //     map.current.on('move', () => {
-    //         setLng(map.current.getCenter().lng.toFixed(4));
-    //         setLat(map.current.getCenter().lat.toFixed(4));
-    //         setZoom(map.current.getZoom().toFixed(2));
-    //     });
-    // });
 
     // TODO: fill in coordinates from user to populate the map
 
     useEffect(() => {
         if (!map.current) return;
-        map.current.on('move', () => {
-            setLng(map.current.getCenter().lng.toFixed(4));
-            setLat(map.current.getCenter().lat.toFixed(4));
-            setZoom(map.current.getZoom().toFixed(2));
-        });
-        // Add the geolocate control to the map
-        map.current.addControl(
-            new mapboxgl.GeolocateControl({
-                positionOptions: {
-                    enableHighAccuracy: true
-                },
-                // When active the map will receive updates to the device's location as it changes
-                trackUserLocation: true,
-                showUserHeading: true,
-            })
-        );
+        // map.current.on('move', () => {
+        //     setLng(map.current.getCenter().lng.toFixed(4));
+        //     setLat(map.current.getCenter().lat.toFixed(4));
+        //     setZoom(map.current.getZoom().toFixed(2));
+        // });
     }, []);
 
-    const handleSetLocation = e => {
+    // convert / forward geocode address to coordinates 
+    const handleSetLocation = e => { 
         e.preventDefault();
-        const coordinates = [lng, lat];
-        console.log(coordinates);
+        setLocation(e.target.value)
+        console.log(e.target.value);
     }
-    
+
+    const handleSubmit  = e => { 
+        e.preventDefault();
+        geocoder.forwardGeocode({
+            query: location,
+        })
+        .send()
+        .then(function(response) {
+            // console.log(response.body.features[0].center)
+            locationLng = response.body.features[0].center[0];
+            locationLat = response.body.features[0].center[1];
+            setCoordinates(locationLng, locationLat);
+            // if (map.current) return; 
+            map.current.flyTo({center:[locationLng, locationLat], zoom: 15});
+        });
+    };
+   
+    // from the coordinates - match the database 
     return (
         <>      
         <div ref={mapContainer} className="map-container">
             <div className="sidebar">
-            Longitude: <div id="lng">{lng}</div> | Latitude: <div id="lng">{lat}</div> | Zoom: {zoom}
+            Longitude: <div id="lng">{coordinates[0]}</div> | Latitude: <div id="lng">{coordinates[1]}</div> | Zoom: {zoom}
             </div>
             <div className="input-address">
-                <form>
+                <form onSubmit={handleSubmit}>
                     <label htmlFor="location">Address</label>
                     <input type="text" id="location" name="location" value={location} onChange={handleSetLocation} />
                     <button type="submit">Find NabeTones in Your Area</button>
