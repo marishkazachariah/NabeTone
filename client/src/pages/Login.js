@@ -26,7 +26,7 @@ export default function Login(props) {
 					// add the user to the state of App.js
 					props.setUser(response);
 					// TODO redirect to the map ..for now just tones 
-					props.history.push('/');
+					props.history.push('/map');
 				}
 			})
 			.catch(err => console.log(err));

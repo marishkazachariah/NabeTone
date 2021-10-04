@@ -35,6 +35,9 @@ function App(props) {
           <Route exact path="/tones/:id" component={AudioDetailsPage} />
           <Route exact path="/map" component={MapboxPage}/>
       </Switch>
+      <footer>
+        <p>Designed and built by Marishka Zachariah for Ironhack Berlin 2021</p>
+      </footer>
     </div>
   );
 }

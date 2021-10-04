@@ -16,7 +16,11 @@ const storage = new CloudinaryStorage({
 		allowed_formats: 'mp3, m4a, wav',
         use_filename: true,
         unique_filename: true,
+        // return_delete_token: true
 	}
 });
+
+// const fileUploader = multer({ storage });
+// module.exports = { fileUploader, cloudinary};
 
 module.exports = multer({ storage });

@@ -5,9 +5,12 @@ mapboxgl.accessToken = "pk.eyJ1IjoidHJhbnNpcmVudCIsImEiOiJja255bXRtZGowbHF0MnBvM
 export default function MapboxPage() {
     const mapContainer = useRef(null);
     const map = useRef(null);
-    const [lng, setLng] = useState(-70.9);
-    const [lat, setLat] = useState(42.35);
-    const [zoom, setZoom] = useState(9);
+    const [lng, setLng] = useState(13.3983);
+    const [lat, setLat] = useState(52.5124);
+    const [zoom, setZoom] = useState(11);
+
+    // input field of address
+    const [location, setLocation] = useState("");
 
     useEffect(() => {
         // initialize map only once
@@ -20,21 +23,58 @@ export default function MapboxPage() {
         });
     });
 
+    // setting up the initial map
+    // useEffect(() => {
+    //     if (!map.current) return;
+    //     map.current.on('move', () => {
+    //         setLng(map.current.getCenter().lng.toFixed(4));
+    //         setLat(map.current.getCenter().lat.toFixed(4));
+    //         setZoom(map.current.getZoom().toFixed(2));
+    //     });
+    // });
+
+    // TODO: fill in coordinates from user to populate the map
+
     useEffect(() => {
         if (!map.current) return;
         map.current.on('move', () => {
-            setLng(map.current.getCenter().llng.toFixed(4));
+            setLng(map.current.getCenter().lng.toFixed(4));
             setLat(map.current.getCenter().lat.toFixed(4));
             setZoom(map.current.getZoom().toFixed(2));
         });
-    });
+        // Add the geolocate control to the map
+        map.current.addControl(
+            new mapboxgl.GeolocateControl({
+                positionOptions: {
+                    enableHighAccuracy: true
+                },
+                // When active the map will receive updates to the device's location as it changes
+                trackUserLocation: true,
+                showUserHeading: true,
+            })
+        );
+    }, []);
 
+    const handleSetLocation = e => {
+        e.preventDefault();
+        const coordinates = [lng, lat];
+        console.log(coordinates);
+    }
+    
     return (
-        <>
-        <div class="sidebar">
-        Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+        <>      
+        <div ref={mapContainer} className="map-container">
+            <div className="sidebar">
+            Longitude: <div id="lng">{lng}</div> | Latitude: <div id="lng">{lat}</div> | Zoom: {zoom}
+            </div>
+            <div className="input-address">
+                <form>
+                    <label htmlFor="location">Address</label>
+                    <input type="text" id="location" name="location" value={location} onChange={handleSetLocation} />
+                    <button type="submit">Find NabeTones in Your Area</button>
+               </form>
+            </div>
         </div>
-        <div ref={mapContainer} className="map-container" />
         </>
     )  
 }

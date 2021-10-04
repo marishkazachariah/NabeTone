@@ -36,18 +36,13 @@ router.post("/upload", fileUploader.single("audioPath"), (req, res, next) => {
 
 // create an audio file
 router.post('/tones/add', (req, res, next) => {
-	const { title, audioPath } = req.body;
+	const { title, audioPath, location } = req.body;
   console.log(req.body);
-  const location = {
-    address: {
-      street: "",
-      postalCode: "",
-      city: "",
-    }
-  };
 	AudioFile.create({
 		title,
 		audioPath,
+    audioName,
+    location,
     author: req.user._id,
 	})
 		.then(audioFile => {
@@ -74,16 +69,23 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
-  //TODO only user can delete their own audio files
-  const audioFileId = req.params.id;
-  // TODO cannot seem to get req.user in router.delete
-  const userIndex = req.body;
-  console.log("user is: ", userIndex);
-	// AudioFile.findByIdAndDelete(audioFileId)
-	// 	.then(() => {
-	// 		res.status(200).json({ message: 'project deleted' });
-	// 	})
+// router.delete('/:id', (req, res, next) => {
+//   const audioFileId = req.params.id;  
+// 	AudioFile.findByIdAndDelete(audioFileId)
+// 		.then(() => {
+// 			res.status(200).json({ message: 'project deleted' });
+// 		})
+//     .catch(err => next(err))
+// });
+
+router.delete('/:id', (req, res, next) => {
+  AudioFile.findByIdAndDelete(req.params.id)
+      .then(() => {
+        fileUploader.destroy(`${req.params.id}`, function(error, result) {
+          console.log(result, error) });
+          res.status(200).json({ message: 'audio file deleted' });
+      })
+      .catch(err => next(err));
 });
 
 module.exports = router;

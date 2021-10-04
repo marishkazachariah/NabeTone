@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
+import service from '../api/service';
+// import User from '../../../models/User';
 
 export default function AudioDetailsPage(props) {
     const API_URL = 'http://localhost:5005';
@@ -32,6 +34,15 @@ export default function AudioDetailsPage(props) {
 			.catch(err => console.log(err));
 	}
 
+    const deleteAudioFile = (id) => {
+        return service
+        .deleteAudioFile(id)
+        .then(response => {
+            console.log('song deleted', response);
+        })
+        .catch(err => console.log(err))
+    }
+
     return (
         <div>
             {audioFile && (
@@ -40,7 +51,8 @@ export default function AudioDetailsPage(props) {
                     <div>
                         <audio src={audioFile.audioPath} controls />
                     </div>
-                    <button onClick={deleteProject}>Delete this project 🗑</button>
+                    {/* <button onClick={deleteProject}>Delete this project 🗑</button> */}
+                    <button onClick={() => deleteAudioFile(audioFile._id)}>Delete {audioFile.title}</button>
 				</>
 			)}
         </div>

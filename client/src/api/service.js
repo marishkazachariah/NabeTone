@@ -24,10 +24,17 @@ const saveNewAudioFile = (newAudioFile) => {
     .catch(errorHandler);
 };
 
+const deleteAudioFile = (audioFileId) => {
+    return service.delete(`/audiofiles/${audioFileId}`)
+    .then((res) => res.data)
+    .catch(errorHandler);
+}
+
 const data = {
     service,
     handleUpload,
-    saveNewAudioFile
+    saveNewAudioFile,
+    deleteAudioFile
 };
 
 export default data;

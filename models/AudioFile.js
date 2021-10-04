@@ -4,16 +4,10 @@ const audioFileSchema = new Schema({
   title: String,
   audioPath: String,
   audioName: String,
+  location: String, 
   author: {
     type: Schema.Types.ObjectId,
     ref: "User",
-  },
-  location: {
-    address: {
-      street: String,
-      postalCode: String,
-      city: String,
-    },
   },
 });
 
