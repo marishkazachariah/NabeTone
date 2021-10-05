@@ -14,7 +14,7 @@ export default function AudioDetailsPage(props) {
     const getAudioFile = () => {
 		axios.get(`${API_URL}/api/audiofiles/${audioFileId}`)
 			.then(response => {
-				console.log("audio id file is", response.data.author);
+                console.log(response.data);
 				setAudioFile(response.data);
 			})
 			.catch(err => console.log(err))
@@ -23,7 +23,7 @@ export default function AudioDetailsPage(props) {
     const getUserId = () => {
         axios.get('/api/auth/loggedin')
         .then(user => {
-            console.log('user data is', user.data._id);
+            // console.log('user data is', user.data._id);
             setUser(user.data);
         })
     }
@@ -48,13 +48,12 @@ export default function AudioDetailsPage(props) {
         .deleteAudioFile(id)
         .then(response => {
             console.log('song deleted', response);
-            props.history.push('/tones');
+            props.history.push('/my-tones');
         })
         .catch(err => console.log(err))
     }
 
     return (
-        // <div></div>
         <div>
             {audioFile && (
                 <>

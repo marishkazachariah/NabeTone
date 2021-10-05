@@ -1,7 +1,6 @@
 import React from "react";
 import service from "../api/service";
 import { useState } from "react";
-import axios from "axios";
 
 export default function AddAudioFile() {
   const [title, setTitle] = useState("");
@@ -25,6 +24,7 @@ export default function AddAudioFile() {
       .saveNewAudioFile({ title, audioPath, location })
       .then((res) => {
         console.log("added new audio file: ", res);
+        // how to redirect?
       })
       .catch((err) => console.log("Error while adding the new audio file: ", err));
   };
