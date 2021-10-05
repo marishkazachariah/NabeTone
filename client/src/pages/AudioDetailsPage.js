@@ -10,11 +10,11 @@ export default function AudioDetailsPage(props) {
 	const [audioFile, setAudioFile] = useState(null);
     const [user, setUser] = useState(null);
 	const audioFileId = props.match.params.id;
-    // const userId = props.user._id;
+
     const getAudioFile = () => {
 		axios.get(`${API_URL}/api/audiofiles/${audioFileId}`)
 			.then(response => {
-				console.log("audio id file is", response.data._id);
+				console.log("audio id file is", response.data.author);
 				setAudioFile(response.data);
 			})
 			.catch(err => console.log(err))
@@ -33,7 +33,7 @@ export default function AudioDetailsPage(props) {
         getUserId();
 	}, [])
 
-    // const deleteProject = () => {
+    // const deleteAudioFile = () => {
 	// 	axios.delete(`${API_URL}/api/audiofiles/${audioFileId}`)
 	// 		.then(() => {
 	// 			// redirect (for now) to Audio File List
@@ -65,8 +65,7 @@ export default function AudioDetailsPage(props) {
                         <audio src={audioFile.audioPath} controls />
                     </div>
                     {/* If user's id matches the objects id, the object is deleted */}
-                    { user._id === audioFile._id ? (<> <button onClick={() => deleteAudioFile(audioFile._id)}>Delete {audioFile.title}</button> </>) : (<></>) }
-                    {/* <button onClick={() => deleteAudioFile(audioFile._id)}>Delete {audioFile.title}</button> */}
+                    { user._id === audioFile.author ? (<button onClick={() => deleteAudioFile(audioFile._id)}>Delete {audioFile.title}</button>) : (<></>) }
 				</>
             )}
             </>
