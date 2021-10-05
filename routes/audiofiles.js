@@ -68,9 +68,6 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
-// mapbox get location
-
-
 // Deletion of audio file without cloudinary
 
 // router.delete('/:id', (req, res, next) => {

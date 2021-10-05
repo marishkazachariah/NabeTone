@@ -33,17 +33,9 @@ export default function MapboxPage() {
     });
 
     // TODO: fill in coordinates from user to populate the map
+    // from the coordinates - match the database
 
-    useEffect(() => {
-        if (!map.current) return;
-        // map.current.on('move', () => {
-        //     setLng(map.current.getCenter().lng.toFixed(4));
-        //     setLat(map.current.getCenter().lat.toFixed(4));
-        //     setZoom(map.current.getZoom().toFixed(2));
-        // });
-    }, []);
-
-    // convert / forward geocode address to coordinates 
+    // convert / forward geocode the input address to coordinates 
     const handleSetLocation = e => { 
         e.preventDefault();
         setLocation(e.target.value)
@@ -65,8 +57,7 @@ export default function MapboxPage() {
             map.current.flyTo({center:[locationLng, locationLat], zoom: 15});
         });
     };
-   
-    // from the coordinates - match the database 
+    
     return (
         <>      
         <div ref={mapContainer} className="map-container">
@@ -82,5 +73,6 @@ export default function MapboxPage() {
             </div>
         </div>
         </>
+
     )  
 }

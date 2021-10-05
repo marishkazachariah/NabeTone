@@ -33,6 +33,7 @@ function App(props) {
           <Route exact path="/my-tones" render={props => <UserAudioFilesPage setUser={addUser} {...props} user={user} />} />
           <Route exact path='/tones/add' component={AddAudioFile} />
           <Route exact path="/tones/:id" component={AudioDetailsPage} />
+          {/* <Route exact path="tones/:id" render={props => <AudioDetailsPage setUser={addUser} {...props} user={user} />} /> */}
           <Route exact path="/map" component={MapboxPage}/>
       </Switch>
       <footer>
