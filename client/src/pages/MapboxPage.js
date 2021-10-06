@@ -85,7 +85,6 @@ export default function MapboxPage(props) {
     function addMarker(coord, id, audioTitle) {
       // TODO: figure out why the :id is not working
       const audioIdString = `/tones/${id}`;
-      const titleOfAudio = audioTitle;
       new mapboxgl.Marker({
         color: "red",
       });
@@ -95,7 +94,7 @@ export default function MapboxPage(props) {
         closeOnMove: false,
       })
         .setHTML(
-          `<div><button><a href=${audioIdString}>${titleOfAudio}</a></button></div>`
+          `<div><button><a href=${audioIdString}>${audioTitle}</a></button></div>`
         )
         .setLngLat(coord)
         .addTo(map.current);
