@@ -2,7 +2,7 @@ import React from "react";
 import service from "../api/service";
 import { useState } from "react";
 
-export default function AddAudioFile() {
+export default function AddAudioFile(props) {
   const [title, setTitle] = useState("");
   const [audioPath, setAudioPath] = useState("");
   const [location, setLocation] = useState("");
@@ -24,7 +24,7 @@ export default function AddAudioFile() {
       .saveNewAudioFile({ title, audioPath, location })
       .then((res) => {
         console.log("added new audio file: ", res);
-        // how to redirect?
+        props.history.push('/tones');
       })
       .catch((err) => console.log("Error while adding the new audio file: ", err));
   };
@@ -35,7 +35,7 @@ export default function AddAudioFile() {
       <form onSubmit={handleSubmit}>
         <label htmlFor="title">
             Title
-            <input type="text" id="title" placeholder="Sounds of Karl Marx Straße" name="title" value={title} onChange={e => setTitle(e.target.value)} />
+            <input type="text" id="title" placeholder="Sounds of Neukölln" name="title" value={title} onChange={e => setTitle(e.target.value)} />
         </label>
         <label htmlFor="location">
             Location

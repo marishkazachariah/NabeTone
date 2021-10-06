@@ -24,8 +24,7 @@ export default function Login(props) {
 				} else {
 					// user is correctly signed up in the backend
 					// add the user to the state of App.js
-					props.setUser(response);
-					// TODO redirect to the map ..for now just tones 
+					props.setUser(response); 
 					props.history.push('/map');
 				}
 			})

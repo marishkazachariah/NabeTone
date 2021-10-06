@@ -1,0 +1,107 @@
+[33mcommit ae1eb4c2e5464566057aa0e636db7af464ad5393[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Marishka Zachariah <marishka.zachariah@gmail.com>
+Date:   Tue Oct 5 15:11:29 2021 +0200
+
+    existing audiofiles are populated on the map
+
+[33mcommit 06c58ab3a7f35328b0efdc43c2a241aaf46762c8[m
+Author: Marishka Zachariah <marishka.zachariah@gmail.com>
+Date:   Tue Oct 5 11:31:33 2021 +0200
+
+    delete button only shows for user's owns audio files
+
+[33mcommit 2c8f3b7c13558973245f3dbc01163b598ac0545c[m
+Author: Marishka Zachariah <marishka.zachariah@gmail.com>
+Date:   Tue Oct 5 11:20:56 2021 +0200
+
+    attempt at adding a conditional if user id matches audio id to delete the audio
+
+[33mcommit d0b3c39024218a84e6b3aba6ef30fa665eb14b2a[m
+Author: Marishka Zachariah <marishka.zachariah@gmail.com>
+Date:   Mon Oct 4 23:35:36 2021 +0200
+
+    users can input address and map flys to that location/area
+
+[33mcommit 21e43e05017769e3b94f1ca40d0bdc020ef673bd[m
+Author: Marishka Zachariah <marishka.zachariah@gmail.com>
+Date:   Mon Oct 4 16:58:34 2021 +0200
+
+    installed mapbox-gl-geocoder
+
+[33mcommit 3c65c25be16556102cc21dfd3e8b97ae12a7af07[m
+Author: Marishka Zachariah <marishka.zachariah@gmail.com>
+Date:   Mon Oct 4 16:55:27 2021 +0200
+
+    attempt at deleting audiofiles from cloudinary + start implementing address/location query
+
+[33mcommit e74039365796cff41250c246f2a07e6c1801f5ce[m
+Author: Marishka Zachariah <marishka.zachariah@gmail.com>
+Date:   Fri Oct 1 18:03:39 2021 +0200
+
+    mapbox initial setup with react
+
+[33mcommit 5426e58f4fbfaf71aa4d31bf9be62bfdabe1bf58[m
+Author: Marishka Zachariah <marishka.zachariah@gmail.com>
+Date:   Fri Oct 1 16:48:17 2021 +0200
+
+    passport implementation
+
+[33mcommit 063f234336361483d5a73ea55d4ecb56c29f4b31[m
+Author: Marishka Zachariah <marishka.zachariah@gmail.com>
+Date:   Fri Oct 1 14:50:45 2021 +0200
+
+    attempt at deleting audio file by specific user'
+
+[33mcommit 3e4769069c1c8c2b36d0d7bcbf38c8c66443ce42[m
+Author: Marishka Zachariah <marishka.zachariah@gmail.com>
+Date:   Fri Oct 1 11:46:17 2021 +0200
+
+    users can access their own audio files in /my-tones
+
+[33mcommit d4b5c059709bd2ebe436be6c570b62aed3129725[m
+Author: Marishka Zachariah <marishka.zachariah@gmail.com>
+Date:   Thu Sep 30 17:58:56 2021 +0200
+
+    removed unmounted component warning
+
+[33mcommit 2be472fd2c97dd57e65f75af83ca989e59ed1196[m
+Author: Marishka Zachariah <marishka.zachariah@gmail.com>
+Date:   Thu Sep 30 17:38:40 2021 +0200
+
+    delete functionality implementation on AudioDetailsPage'
+
+[33mcommit cabc43e93e6a310e32d30b4d1bb1c072052e2821[m
+Author: Marishka Zachariah <marishka.zachariah@gmail.com>
+Date:   Thu Sep 30 17:16:00 2021 +0200
+
+    all tones are populated and audio player appears when you click on specific audio file link
+
+[33mcommit 899ab37c0dcf20865bdad15e2a1c6f9930aa946a[m
+Author: Marishka Zachariah <marishka.zachariah@gmail.com>
+Date:   Thu Sep 30 16:33:28 2021 +0200
+
+    implement upload new audio file and store them on cloudinary
+
+[33mcommit 4a1a5a67b154a260fcb5b77033238ea14c9ecdb6[m
+Author: Marishka Zachariah <marishka.zachariah@gmail.com>
+Date:   Wed Sep 29 18:19:14 2021 +0200
+
+    authorization of front end and back end
+
+[33mcommit 08a521a9abadff946165e82127ebd9b0fb443d09[m
+Author: Marishka Zachariah <marishka.zachariah@gmail.com>
+Date:   Wed Sep 29 14:11:29 2021 +0200
+
+    create AudioFile model
+
+[33mcommit 30e98cb4125d3fdeda0e753da09663c5828ac8a9[m
+Author: Marishka Zachariah <marishka.zachariah@gmail.com>
+Date:   Wed Sep 29 14:11:03 2021 +0200
+
+    reference audiofiles as a schema and declared as an array
+
+[33mcommit 08751de7ab902009ff0ee2411abe5f714805f876[m
+Author: Marishka Zachariah <marishka.zachariah@gmail.com>
+Date:   Wed Sep 29 11:04:50 2021 +0200
+
+    importing ironlauncher and react client. Renamed User.model.js to just User.js

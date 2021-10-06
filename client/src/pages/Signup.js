@@ -21,10 +21,8 @@ export default function Signup(props) {
         } else {
             // user is correctly signed up in the backend
             // add the user to the state of App.js
-            props.setUser(response);
-            // TODO: redirect to the audiofiles
-            // for now it's just redirecting to home 
-            props.history.push('/');
+            props.setUser(response); 
+            props.history.push('/map');
         }
     })
     .catch(err => console.log(err))

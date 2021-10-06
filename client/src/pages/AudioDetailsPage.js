@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import service from '../api/service';
-// import User from '../../../models/User';
+import { Link } from 'react-router-dom';
 
 export default function AudioDetailsPage(props) {
     const API_URL = 'http://localhost:5005';
@@ -65,6 +65,7 @@ export default function AudioDetailsPage(props) {
                     </div>
                     {/* If user's id matches the objects id, the object is deleted */}
                     { user._id === audioFile.author ? (<button onClick={() => deleteAudioFile(audioFile._id)}>Delete {audioFile.title}</button>) : (<></>) }
+                    { user._id === audioFile.author ? (<Link to={`/tones/edit/:${audioFile._id}`}><button>Edit {audioFile.title}</button></Link>) : <></> }
 				</>
             )}
             </>

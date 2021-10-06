@@ -68,6 +68,15 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
+router.put('/:id', (req, res, next) => {
+	const { title, audioPath } = req.body;
+	AudioFile.findByIdAndUpdate(req.params.id, { title: title, audioPath: audioPath }, { new: true })
+		.then(updatedProject => {
+			res.status(200).json(updatedProject);
+		})
+		.catch(err => next(err));
+});
+
 // Deletion of audio file without cloudinary
 
 // router.delete('/:id', (req, res, next) => {

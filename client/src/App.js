@@ -12,6 +12,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AudioDetailsPage from './pages/AudioDetailsPage';
 import UserAudioFilesPage from './pages/UserAudioFilesPage';
 import MapboxPage from './pages/MapboxPage';
+import EditAudioFilePage from './pages/EditAudioFilePage';
 
 function App(props) {
 
@@ -33,6 +34,7 @@ function App(props) {
           <Route exact path="/my-tones" render={props => <UserAudioFilesPage setUser={addUser} {...props} user={user} />} />
           <Route exact path='/tones/add' component={AddAudioFile} />
           <Route exact path="/tones/:id" component={AudioDetailsPage} />
+          <Route exact path="/tones/edit/:id" component={EditAudioFilePage} />
           <Route exact path="/map" component={MapboxPage} />
       </Switch>
       <footer>

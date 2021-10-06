@@ -2,8 +2,7 @@ import React from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
-// import Geocoder from 'react-mapbox-gl-geocoder';
-mapboxgl.accessToken = "pk.eyJ1IjoidHJhbnNpcmVudCIsImEiOiJja255bXRtZGowbHF0MnBvM3U4d2J1ZG5vIn0.IVcxB9Xw6Tcc8yHGdK_0zA";
+mapboxgl.accessToken = "pk.eyJ1IjoibXphY2hhcmlhaCIsImEiOiJja3RlNWt6dzIwNHJjMndxbjV3bnlpcmU2In0.7MRhuJXrG3GmAbv65IIEew";
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding")
 const geocoder = mbxGeocoding({accessToken: mapboxgl.accessToken});
 
@@ -22,10 +21,13 @@ export default function MapboxPage() {
 
     // audio file locations
     const [audioFileLocations, setAudioFileLocation] = useState(null);
+    let audioId;
+    let audioCoords;
+
 
     const API_URL = 'http://localhost:5005';
 
-    // TODO: fill in coordinates from user to populate the map
+    // get all coordinates from user to populate the map
     const getAllAudioFiles = () => {
 		// get request to the server
 		axios.get(`${API_URL}/api/audiofiles`)
@@ -42,7 +44,7 @@ export default function MapboxPage() {
         if (map.current) return; 
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
-            style: 'mapbox://styles/mapbox/streets-v11',
+            style: 'mapbox://styles/mzachariah/ckue5feo1132o17qljqbw0dsn',
             center:[coordinates[0], coordinates[1]],
             zoom: zoom
         });
@@ -51,30 +53,49 @@ export default function MapboxPage() {
 
     // convert / forward geocode the input address to coordinates 
     const convertAudioFileLocations = () => {
-        audioFileLocations.map((audioLocation) => {
+        const inputCoords = [Math.round(coordinates[0] * 10)/10, Math.round(coordinates[1] * 10)/10 ];
+        // console.log(inputCoords);
+        const getAudioFileLocations = audioFileLocations.map((audioLocation) => {
             return (
                 geocoder.forwardGeocode({
                     query: audioLocation.location
                 })
                 .send()
                 .then(async response => {
-                    const audioLocales = response.body.features;
+                    // get coordinates from first object of array (most accurate to address)
+                    const audioLocales = response.body.features[0]; 
                     // console.log(audioLocales);
-                    for (let i = 0; i < audioLocales.length; i++) {
-                        const coord = [audioLocales[i].center[0], audioLocales[i].center[1]]
-                        console.log(coord);
-                        await addMarker(coord);
-                    }
+                    
+                    // populate the coordinates
+                    const coord = [audioLocales.center[0], audioLocales.center[1]];
+                    audioId = audioLocation._id;
+                    await addMarker(coord, audioId);
+                    const audioCoordLng = Math.round(audioLocales.center[0] * 10)/10;
+                    const audioCoordLat = Math.round(audioLocales.center[1] * 10)/10;
+                    audioCoords = [audioCoordLng, audioCoordLat];
+                    return audioCoords;
                 })
             )
         } )
+        console.log(getAudioFileLocations);
     }
-
-    function addMarker(coord) {
-      console.log(coord);
+    
+    function addMarker(coord, id) {
+      // TODO: figure out why the :id is not working 
+      const audioIdString = `/tones/?:id=${id}`;
+      const onClickString = `window.location.replace(${audioIdString})`;
       new mapboxgl.Marker({
         color: "red",
       })
+      new mapboxgl.Popup({
+          closebutton: true,
+          closeOnClick: false,
+          closeOnMove: false,
+      })
+        .setHTML(
+    //   '<div><button onclick="window.location.replace(`${audioIdString}`)">Click to view Nabetone</button></div>'
+        `<div><button onclick=${onClickString}>Click to view Nabetone</button></div>`
+        )
         .setLngLat(coord)
         .addTo(map.current);
     }
