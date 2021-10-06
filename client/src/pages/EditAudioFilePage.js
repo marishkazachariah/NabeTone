@@ -34,16 +34,14 @@ export default function EditAudioFilePage(props) {
 		const requestBody = { title, audioPath };
 		axios.put(`${API_URL}/api/audiofiles/${audioFileId}`, requestBody)
 			.then(response => {
-				// this is a redirect using react router dom 
-				// props.history.push(`/audiofiles/${audioFileId}`);
-                props.history.push(`/audiofiles/`);
+				props.history.push(`/tones/${audioFileId}`);
 			})
 			.catch(err => console.log(err))
 	}
 
     return (
         <div>
-            <h3>Edit this project</h3>
+            <h3>Edit Nabetone: {title}</h3>
             <form onSubmit={handleSubmit}>
             <label htmlFor="title">Title: </label>
 				<input
