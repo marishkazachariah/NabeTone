@@ -6,6 +6,7 @@ export default function EditAudioFilePage(props) {
     const API_URL = 'http://localhost:5005';
 
     const [title, setTitle] = useState("");
+    const [initTitle, setInitTitle] = useState("");
     const [audioPath, setAudioPath] = useState("");
     const audioFileId = props.match.params.id;
 
@@ -25,6 +26,7 @@ export default function EditAudioFilePage(props) {
 			.then(response => {
                 setTitle(response.data.title);
                 setAudioPath(response.data.audioPath);
+                setInitTitle(response.data.title);
 			})
 			.catch(err => console.log(err))
     }, [])
@@ -41,9 +43,9 @@ export default function EditAudioFilePage(props) {
 
     return (
         <div>
-            <h3>Edit Nabetone: {title}</h3>
+            <h3>Edit Nabetone: {initTitle}</h3>
             <form onSubmit={handleSubmit}>
-            <label htmlFor="title">Title: </label>
+            <label htmlFor="title">Title of Nabetone: </label>
 				<input
 					type="text"
 					name="title"
