@@ -22,6 +22,7 @@ export default function MapboxPage(props) {
     // audio file locations
     const [audioFileLocations, setAudioFileLocation] = useState(null);
     let audioId;
+    let audioTitle;
     let audioCoords;
 
 
@@ -69,7 +70,8 @@ export default function MapboxPage(props) {
                     // populate the coordinates
                     const coord = [audioLocales.center[0], audioLocales.center[1]];
                     audioId = audioLocation._id;
-                    await addMarker(coord, audioId);
+                    audioTitle = audioLocation.title;
+                    await addMarker(coord, audioId, audioTitle);
                     const audioCoordLng = Math.round(audioLocales.center[0] * 10)/10;
                     const audioCoordLat = Math.round(audioLocales.center[1] * 10)/10;
                     audioCoords = [audioCoordLng, audioCoordLat];
@@ -80,9 +82,10 @@ export default function MapboxPage(props) {
         console.log(getAudioFileLocations);
     }
   
-    function addMarker(coord, id) {
+    function addMarker(coord, id, audioTitle) {
       // TODO: figure out why the :id is not working
       const audioIdString = `/tones/${id}`;
+      const titleOfAudio = audioTitle;
       new mapboxgl.Marker({
         color: "red",
       });
@@ -92,7 +95,7 @@ export default function MapboxPage(props) {
         closeOnMove: false,
       })
         .setHTML(
-          `<div><button><a href=${audioIdString}>Click to view Nabetone</a></button></div>`
+          `<div><button><a href=${audioIdString}>${titleOfAudio}</a></button></div>`
         )
         .setLngLat(coord)
         .addTo(map.current);
