@@ -6,7 +6,7 @@ mapboxgl.accessToken = "pk.eyJ1IjoibXphY2hhcmlhaCIsImEiOiJja3RlNWt6dzIwNHJjMndxb
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding")
 const geocoder = mbxGeocoding({accessToken: mapboxgl.accessToken});
 
-export default function MapboxPage() {
+export default function MapboxPage(props) {
     
     // mapbox 
     const mapContainer = useRef(null);
@@ -79,22 +79,20 @@ export default function MapboxPage() {
         } )
         console.log(getAudioFileLocations);
     }
-    
+  
     function addMarker(coord, id) {
-      // TODO: figure out why the :id is not working 
-      const audioIdString = `/tones/?:id=${id}`;
-      const onClickString = `window.location.replace(${audioIdString})`;
+      // TODO: figure out why the :id is not working
+      const audioIdString = `/tones/${id}`;
       new mapboxgl.Marker({
         color: "red",
-      })
+      });
       new mapboxgl.Popup({
-          closebutton: true,
-          closeOnClick: false,
-          closeOnMove: false,
+        closebutton: true,
+        closeOnClick: false,
+        closeOnMove: false,
       })
         .setHTML(
-    //   '<div><button onclick="window.location.replace(`${audioIdString}`)">Click to view Nabetone</button></div>'
-        `<div><button onclick=${onClickString}>Click to view Nabetone</button></div>`
+          `<div><button><a href=${audioIdString}>Click to view Nabetone</a></button></div>`
         )
         .setLngLat(coord)
         .addTo(map.current);
@@ -122,6 +120,8 @@ export default function MapboxPage() {
         });
     };
     
+    
+
     return (
         <>      
         <div ref={mapContainer} className="map-container">

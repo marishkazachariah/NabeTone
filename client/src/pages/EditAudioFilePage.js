@@ -35,7 +35,8 @@ export default function EditAudioFilePage(props) {
 		axios.put(`${API_URL}/api/audiofiles/${audioFileId}`, requestBody)
 			.then(response => {
 				// this is a redirect using react router dom 
-				props.history.push(`/audiofiles/${audioFileId}`);
+				// props.history.push(`/audiofiles/${audioFileId}`);
+                props.history.push(`/audiofiles/`);
 			})
 			.catch(err => console.log(err))
 	}

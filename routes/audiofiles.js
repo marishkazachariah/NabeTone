@@ -71,8 +71,8 @@ router.get("/:id", (req, res, next) => {
 router.put('/:id', (req, res, next) => {
 	const { title, audioPath } = req.body;
 	AudioFile.findByIdAndUpdate(req.params.id, { title: title, audioPath: audioPath }, { new: true })
-		.then(updatedProject => {
-			res.status(200).json(updatedProject);
+		.then(updatedAudioFile => {
+			res.status(200).json(updatedAudioFile);
 		})
 		.catch(err => next(err));
 });
