@@ -8,6 +8,7 @@ export default function EditAudioFilePage(props) {
     const [title, setTitle] = useState("");
     const [initTitle, setInitTitle] = useState("");
     const [audioPath, setAudioPath] = useState("");
+    const [location, setLocation] = useState("");
     const audioFileId = props.match.params.id;
 
     const handleFileUpload = (e) => {
@@ -25,15 +26,16 @@ export default function EditAudioFilePage(props) {
         axios.get(`${API_URL}/api/audiofiles/${audioFileId}`)
 			.then(response => {
                 setTitle(response.data.title);
-                setAudioPath(response.data.audioPath);
                 setInitTitle(response.data.title);
+                setAudioPath(response.data.audioPath);
+                setLocation(response.data.location);
 			})
 			.catch(err => console.log(err))
     }, [])
 
     const handleSubmit = e => {
 		e.preventDefault();
-		const requestBody = { title, audioPath };
+		const requestBody = { title, audioPath, location };
 		axios.put(`${API_URL}/api/audiofiles/${audioFileId}`, requestBody)
 			.then(response => {
 				props.history.push(`/tones/${audioFileId}`);
@@ -51,6 +53,14 @@ export default function EditAudioFilePage(props) {
 					name="title"
 					value={title}
 					onChange={e => setTitle(e.target.value)}
+				/>
+                <p>Tip: Add Postal Code/ZIP/PLZ to place Nabetone accurately on the map.</p>
+            <label htmlFor="location">Address: </label>
+				<input
+					type="text"
+					name="location"
+					value={location}
+					onChange={e => setLocation(e.target.value)}
 				/>
             <label htmlFor="file">
                 <input type='file' onChange={handleFileUpload} />

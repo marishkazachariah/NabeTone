@@ -37,6 +37,7 @@ export default function AddAudioFile(props) {
             Title
             <input type="text" id="title" placeholder="Sounds of Neukölln" name="title" value={title} onChange={e => setTitle(e.target.value)} />
         </label>
+        <p>Tip: Add Postal Code/ZIP/PLZ to place Nabetone accurately on the map.</p>
         <label htmlFor="location">
             Location
             <input type="text" id="location" placeholder="Karl Marx Straße 177" name="location" value={location} onChange={e => setLocation(e.target.value)} />
