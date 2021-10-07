@@ -5,14 +5,14 @@ import service from '../api/service';
 import { Link } from 'react-router-dom';
 
 export default function AudioDetailsPage(props) {
-    const API_URL = 'http://localhost:5005';
+    // const API_URL = 'http://localhost:5005';
 
 	const [audioFile, setAudioFile] = useState(null);
     const [user, setUser] = useState(null);
 	const audioFileId = props.match.params.id;
 
     const getAudioFile = () => {
-		axios.get(`${API_URL}/api/audiofiles/${audioFileId}`)
+		axios.get(`/api/audiofiles/${audioFileId}`)
 			.then(response => {
                 console.log(response.data);
 				setAudioFile(response.data);
@@ -37,8 +37,8 @@ export default function AudioDetailsPage(props) {
 	// 	axios.delete(`${API_URL}/api/audiofiles/${audioFileId}`)
 	// 		.then(() => {
 	// 			// redirect (for now) to Audio File List
-    //             // TODO: redirect to map/profile dashboard
-	// 			props.history.push('/tones');
+    //         
+	// 			props.history.push('/my-tones');
 	// 		})
 	// 		.catch(err => console.log(err));
 	// }

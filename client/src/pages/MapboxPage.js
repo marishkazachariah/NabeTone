@@ -24,13 +24,13 @@ export default function MapboxPage(props) {
   let audioId;
   let audioTitle;
   let audioPath;
-  const API_URL = "http://localhost:5005";
+  // const API_URL = "http://localhost:5005";
 
   // get all audio files + coordinates from user to populate the map
   const getAllAudioFiles = () => {
     // get request to the server
     axios
-      .get(`${API_URL}/api/audiofiles`)
+      .get(`/api/audiofiles`)
       .then( (response) => {
         // console.log(response.data)
         setAudioFileLocations(response.data);

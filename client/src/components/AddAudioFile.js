@@ -24,7 +24,7 @@ export default function AddAudioFile(props) {
       .saveNewAudioFile({ title, audioPath, location })
       .then((res) => {
         console.log("added new audio file: ", res);
-        props.history.push('/tones');
+        props.history.push('/my-tones');
       })
       .catch((err) => console.log("Error while adding the new audio file: ", err));
   };

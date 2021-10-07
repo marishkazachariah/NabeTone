@@ -5,14 +5,14 @@ import AudioFileCard from '../components/AudioFileCard';
 
 
 export default function AudioFilesPage() {
-   // we don't need this bc we are using the proxy in package.json
-	const API_URL = 'http://localhost:5005';
+    // we don't need this bc we are using the proxy in package.json
+	// const API_URL = 'http://localhost:5005';
 
 	const [audioFiles, setAudioFiles] = useState([]);
 
 	const getAllAudioFiles = () => {
 		// get request to the server
-		axios.get(`${API_URL}/api/audiofiles`)
+		axios.get('/api/audiofiles')
 			.then(response => {
 				console.log(response.data)
 				setAudioFiles(response.data);

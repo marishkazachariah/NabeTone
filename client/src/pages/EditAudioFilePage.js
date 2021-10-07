@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import service from "../api/service";
 
 export default function EditAudioFilePage(props) {
-    const API_URL = 'http://localhost:5005';
+    // const API_URL = 'http://localhost:5005';
 
     const [title, setTitle] = useState("");
     const [initTitle, setInitTitle] = useState("");
@@ -12,7 +12,7 @@ export default function EditAudioFilePage(props) {
     const audioFileId = props.match.params.id;
 
     useEffect(() => {
-        axios.get(`${API_URL}/api/audiofiles/${audioFileId}`)
+        axios.get(`/api/audiofiles/${audioFileId}`)
 			.then(response => {
                 setTitle(response.data.title);
                 setInitTitle(response.data.title);
@@ -36,7 +36,7 @@ export default function EditAudioFilePage(props) {
     const handleSubmit = e => {
 		e.preventDefault();
 		const requestBody = { title, audioPath, location };
-		axios.put(`${API_URL}/api/audiofiles/${audioFileId}`, requestBody)
+		axios.put(`/api/audiofiles/${audioFileId}`, requestBody)
 			.then(response => {
 				props.history.push(`/tones/${audioFileId}`);
 			})

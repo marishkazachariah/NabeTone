@@ -22,9 +22,9 @@ export default function Navbar(props) {
               <Link to="/my-tones">
                 <li>My Tones</li>
               </Link>
-              <Link to="/tones">
+              {/* <Link to="/tones">
                 <li>All Tones</li>
-              </Link>
+              </Link> */}
               <Link to="/tones/add">
                 <li>Add Tone</li>
               </Link>
