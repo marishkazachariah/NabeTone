@@ -6,6 +6,8 @@ import AudioFileCard from "../components/AudioFileCard";
 
 export default function UserAudioFilesPage(props) {
   const [audioFiles, setAudioFiles] = useState([]);
+  const [searchAudioFile, setSearchAudioFile] = useState("");
+  const [searchAudioFileLocation, setSearchAudioFileLocation] = useState("");
 
   const getUserAudio = () => {
     axios
@@ -20,12 +22,30 @@ export default function UserAudioFilesPage(props) {
     getUserAudio();
   }, []);
 
+  const handleAudioFileNameChange = (e) => {
+    e.preventDefault();
+    setSearchAudioFile(e.target.value);
+  };
+
+  const filteredAudioFiles = audioFiles.filter(audioFile => {
+    return (!searchAudioFile ? true: `${audioFile.title}`.toLowerCase().includes(searchAudioFile) )
+  })
+
   return (
     <div>
       <h1>Hi {props.user.username}, Here are your Tones</h1>
-      {audioFiles.map((audioFile) => (
+      <div>
+          <form>
+            <label htmlFor="search"></label>
+            <input type="search" name="search" id="search" placeholder="Search Nabetones" value={searchAudioFile} onChange={handleAudioFileNameChange} />
+          </form>
+      </div>
+      {filteredAudioFiles.map((audioFile) => (
         <AudioFileCard key={audioFile._id} {...audioFile} />
       ))}
+      {/* {audioFiles.map((audioFile) => (
+        <AudioFileCard key={audioFile._id} {...audioFile} />
+      ))} */}
     </div>
   );
 }

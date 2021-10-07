@@ -11,17 +11,6 @@ export default function EditAudioFilePage(props) {
     const [location, setLocation] = useState("");
     const audioFileId = props.match.params.id;
 
-    const handleFileUpload = (e) => {
-        const uploadData = new FormData();
-        uploadData.append("audioPath", e.target.files[0]);
-        service
-          .handleUpload(uploadData)
-          .then((response) => {
-            setAudioPath(response.secure_url);
-          })
-          .catch((err) => console.log("Error while uploading the file: ", err));
-    };
-
     useEffect(() => {
         axios.get(`${API_URL}/api/audiofiles/${audioFileId}`)
 			.then(response => {
@@ -32,6 +21,17 @@ export default function EditAudioFilePage(props) {
 			})
 			.catch(err => console.log(err))
     }, [])
+    
+    const handleFileUpload = (e) => {
+        const uploadData = new FormData();
+        uploadData.append("audioPath", e.target.files[0]);
+        service
+          .handleUpload(uploadData)
+          .then((response) => {
+            setAudioPath(response.secure_url);
+          })
+          .catch((err) => console.log("Error while uploading the file: ", err));
+    };
 
     const handleSubmit = e => {
 		e.preventDefault();
