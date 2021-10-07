@@ -79,14 +79,14 @@ router.put('/:id', (req, res, next) => {
 
 // Deletion of audio file without cloudinary
 
-// router.delete('/:id', (req, res, next) => {
-//   const audioFileId = req.params.id;  
-// 	AudioFile.findByIdAndDelete(audioFileId)
-// 		.then(() => {
-// 			res.status(200).json({ message: 'project deleted' });
-// 		})
-//     .catch(err => next(err))
-// });
+router.delete('/:id', (req, res, next) => {
+  const audioFileId = req.params.id;  
+	AudioFile.findByIdAndDelete(audioFileId)
+		.then(() => {
+			res.status(200).json({ message: 'project deleted' });
+		})
+    .catch(err => next(err))
+});
 
 router.delete('/:id', (req, res, next) => {
   AudioFile.findByIdAndDelete(req.params.id)
