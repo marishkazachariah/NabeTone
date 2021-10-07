@@ -62,6 +62,7 @@ export default function MapboxPage(props) {
   };
 
   useEffect(() => {
+    getAllAudioFiles();
     // initialize map only once
     if (map.current) return;
     map.current = new mapboxgl.Map({
@@ -71,6 +72,7 @@ export default function MapboxPage(props) {
       zoom: zoom,
     });
     // add geolocation
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const geolocate = new mapboxgl.GeolocateControl({
       positionOptions: {
         enableHighAccuracy: true,
@@ -78,20 +80,18 @@ export default function MapboxPage(props) {
       // When active the map will receive updates to the device's location as it changes.
       trackUserLocation: true,
     });
-    map.current.addControl(geolocate);
-    getAllAudioFiles();
-    
-    // Unfortunately audio files don't repopulate when clicking to find your location
-    geolocate.on("geolocate", (position) => {
-      // const latitude = position.coords.latitude;
-      // const longitude = position.coords.longitude;
-      // console.log("lat, lng", latitude, longitude);
-      if(audioFileLocations !== []) {
-        // TODO: this isn't being called?!
-        getAudioFileLocations();
-      }
-    });
+    map.current.addControl(geolocate);    
   }, []);
+
+  const handleOnGeoLocate = () => {
+    // Unfortunately audio files don't repopulate when clicking to find your location
+    // For now, an invisible button appears behind the geolocate button as I cannot place it on top of the geolocate button
+    // I can only populate getAudioFileLocations() on the mapbox click event. 
+    map.current.on('click', () => {
+        console.log("hey");
+      getAudioFileLocations();
+    });
+  }
 
   function addMarker(coord, id, audioTitle, audioPath) {
     const audioIdString = `/tones/${id}`;
@@ -132,20 +132,14 @@ export default function MapboxPage(props) {
         map.current.flyTo({ center: [locationLng, locationLat], zoom: 15 });
       });
   };
-  if(audioFileLocations === []) {
+  if(!audioFileLocations) {
       return<></>
   }
   return (
     <>
-      <div ref={mapContainer} className="map-container">
-        <div className="sidebar">
-          Longitude: <div id="lng">{coordinates[0]}</div> | Latitude:{" "}
-          <div id="lng">{coordinates[1]}</div> | Zoom: {zoom}
-        </div>
-        <div className="input-address">
+        <div>
           <form onSubmit={handleSubmit}>
             <label htmlFor="location">Address</label>
-            <button type="submit">Discover All Nabetones</button>
             <input
               type="text"
               id="location"
@@ -153,7 +147,16 @@ export default function MapboxPage(props) {
               value={location}
               onChange={handleSetLocation}
             />
+            <div><button type="submit">Discover Nabetones in Your Area</button></div>
           </form>
+        </div>
+      <div ref={mapContainer} className="map-container">
+        <div className="sidebar">
+          Longitude: <div id="lng">{coordinates[0]}</div> | Latitude:{" "}
+          <div id="lng">{coordinates[1]}</div> | Zoom: {zoom}
+        </div>
+        <div className="secret-button">
+        <button onClick={handleOnGeoLocate}>Test Click</button>
         </div>
       </div>
     </>
