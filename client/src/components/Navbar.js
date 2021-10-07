@@ -11,44 +11,44 @@ export default function Navbar(props) {
 
   return (
     <>
-      <nav>
-        <ul>
+      <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+      <div className="container-fluid">
+      <div className="collapse navbar-collapse" id="navbarNav">
+        <ul className="navbar-nav">
           {props.user ? (
             <>
-              {/* Nice to have: Profile page */}
-              {/* <Link to="/profile">
-				<li>Profile</li>
-			</Link> */}
-              <Link to="/my-tones">
-                <li>My Tones</li>
+              <Link to="/my-tones" className="nav-link">
+                <li className="nav-item">My Tones</li>
               </Link>
               {/* <Link to="/tones">
                 <li>All Tones</li>
               </Link> */}
-              <Link to="/tones/add">
-                <li>Add Tone</li>
+              <Link to="/tones/add" className="nav-link">
+                <li className="nav-item">Add Tone</li>
               </Link>
-              <Link to="/" onClick={() => handleLogout()}>
-                <li>Logout</li>
+              <Link to="/" onClick={() => handleLogout()} className="nav-link">
+                <li className="nav-item">Logout</li>
               </Link>
             </>
           ) : (
             <>
               <Link to="/">
-                <li>Home</li>
+                <li className="nav-item-active">Home</li>
               </Link>
-              <Link to="/signup">
-                <li>Signup</li>
+              <Link to="/signup" className="nav-link">
+                <li className="nav-item">Signup</li>
               </Link>
-              <Link to="/login">
-                <li>Login</li>
+              <Link to="/login" className="nav-link">
+                <li className="nav-item">Login</li>
               </Link>
             </>
           )}
-          <Link to="/map">
-            <li>Locate NodeTones</li>
+          <Link to="/map" className="nav-link">
+            <li className="nav-item">Locate NodeTones</li>
           </Link>
         </ul>
+        </div>
+        </div>
       </nav>
     </>
   );

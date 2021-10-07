@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-// import AudioDetailsPage from "./AudioDetailsPage";
+import { Link } from "react-router-dom";
 import AudioFileCard from "../components/AudioFileCard";
 
 export default function UserAudioFilesPage(props) {
@@ -51,12 +51,12 @@ export default function UserAudioFilesPage(props) {
             </div>
           </form>
       </div>
-      {filteredAudioFiles.map((audioFile) => (
-        <AudioFileCard key={audioFile._id} {...audioFile} />
-      ))}
-      {/* {audioFiles.map((audioFile) => (
-        <AudioFileCard key={audioFile._id} {...audioFile} />
-      ))} */}
+      {filteredAudioFiles.length !== 0 ? (
+        filteredAudioFiles.map((audioFile) => (
+        <AudioFileCard key={audioFile._id} {...audioFile}></AudioFileCard>
+      ))
+      ) : <h1>You have no Nabetones! <Link to="/tones/add">Add a Nabetone?</Link></h1>
+      }
     </div>
   );
 }

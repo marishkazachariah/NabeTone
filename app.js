@@ -17,7 +17,7 @@ require("./config")(app);
 // session configuration
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-const DB_URL = process.env.MONGODB_URI || 'mongodb://localhost/project-3';
+const DB_URL = 'mongodb://localhost/project-3';
 
 app.use(
 	session({
@@ -100,13 +100,13 @@ app.use("/api/audiofiles", audioFiles);
 
 const auth = require("./routes/auth");
 
-const path = require('path');
-app.use(express.static(path.join(__dirname, "/client/build")));
+// const path = require('path');
+// app.use(express.static(path.join(__dirname, "/client/build")));
 
-app.use((req, res) => {
-  // If no routes match, send them the React HTML.
-  res.sendFile(__dirname + "/client/build/index.html");
-});
+// app.use((req, res) => {
+//   // If no routes match, send them the React HTML.
+//   res.sendFile(__dirname + "/client/build/index.html");
+// });
 
 app.use("/api/auth", auth);
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes

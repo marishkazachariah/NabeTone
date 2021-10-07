@@ -2,8 +2,10 @@ import React from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import { useRef, useState, useEffect } from "react";
 import axios from "axios";
+
 mapboxgl.accessToken =
   "pk.eyJ1IjoibXphY2hhcmlhaCIsImEiOiJja3RlNWt6dzIwNHJjMndxbjV3bnlpcmU2In0.7MRhuJXrG3GmAbv65IIEew";
+
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const geocoder = mbxGeocoding({ accessToken: mapboxgl.accessToken });
 
@@ -103,7 +105,7 @@ export default function MapboxPage(props) {
       closeOnClick: false,
       closeOnMove: false,
       maxWidth: "auto"
-    })
+    }) 
       .setHTML(
         // Linking audio player instead
         `<div><a href=${audioIdString}>${audioTitle}</a></div><div><audio src=${audioPath} controls /></div>`

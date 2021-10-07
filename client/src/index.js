@@ -6,6 +6,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
+import 'bootstrap';
 
 // get the logged in user from the backend and pass it App.js
 axios.get('/api/auth/loggedin')
