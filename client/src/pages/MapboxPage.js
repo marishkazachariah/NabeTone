@@ -99,9 +99,10 @@ export default function MapboxPage(props) {
       color: "red",
     });
     new mapboxgl.Popup({
-      closebutton: true,
+      closeButton: false,
       closeOnClick: false,
       closeOnMove: false,
+      maxWidth: "auto"
     })
       .setHTML(
         // Linking audio player instead
