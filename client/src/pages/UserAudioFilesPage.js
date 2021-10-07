@@ -27,8 +27,14 @@ export default function UserAudioFilesPage(props) {
     setSearchAudioFile(e.target.value);
   };
 
+  const handleAudioFileLocationChange = (e) => {
+    e.preventDefault();
+    setSearchAudioFileLocation(e.target.value);
+  };
+
   const filteredAudioFiles = audioFiles.filter(audioFile => {
-    return (!searchAudioFile ? true: `${audioFile.title}`.toLowerCase().includes(searchAudioFile) )
+    return ( !searchAudioFile ? true: `${audioFile.title}`.toLowerCase().includes(searchAudioFile) )
+        && ( !searchAudioFileLocation ? true: `${audioFile.location}`.toLowerCase().includes(searchAudioFileLocation)  )
   })
 
   return (
@@ -36,8 +42,13 @@ export default function UserAudioFilesPage(props) {
       <h1>Hi {props.user.username}, Here are your Tones</h1>
       <div>
           <form>
-            <label htmlFor="search"></label>
-            <input type="search" name="search" id="search" placeholder="Search Nabetones" value={searchAudioFile} onChange={handleAudioFileNameChange} />
+            <label htmlFor="audioTitle">Search by Name of NabeTone</label>
+            <input type="search" name="audioTitle" id="audioTitle" placeholder="5 AM at Berghain" value={searchAudioFile} onChange={handleAudioFileNameChange} />
+            <div>
+                <label htmlFor="audioLocation">Search by Location</label>
+                <p>( Search by location only works depending on your exact address input )</p>
+                <input type="search" name="audioLocation" id="audioLocation" placeholder="Berlin" value={searchAudioFileLocation} onChange={handleAudioFileLocationChange} />
+            </div>
           </form>
       </div>
       {filteredAudioFiles.map((audioFile) => (
