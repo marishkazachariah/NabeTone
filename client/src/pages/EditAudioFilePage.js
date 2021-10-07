@@ -21,7 +21,7 @@ export default function EditAudioFilePage(props) {
 			})
 			.catch(err => console.log(err))
     }, [])
-    
+
     const handleFileUpload = (e) => {
         const uploadData = new FormData();
         uploadData.append("audioPath", e.target.files[0]);
@@ -54,7 +54,7 @@ export default function EditAudioFilePage(props) {
 					value={title}
 					onChange={e => setTitle(e.target.value)}
 				/>
-                <p>Tip: Add Postal Code/ZIP/PLZ to place Nabetone accurately on the map.</p>
+                <p>Tip: Add City & Postal Code/ZIP/PLZ to place Nabetone accurately on the map.</p>
             <label htmlFor="location">Address: </label>
 				<input
 					type="text"
