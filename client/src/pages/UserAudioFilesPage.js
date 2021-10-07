@@ -22,7 +22,7 @@ export default function UserAudioFilesPage(props) {
 
   return (
     <div>
-      <h1>My Tones</h1>
+      <h1>Hi {props.user.username}, Here are your Tones</h1>
       {audioFiles.map((audioFile) => (
         <AudioFileCard key={audioFile._id} {...audioFile} />
       ))}

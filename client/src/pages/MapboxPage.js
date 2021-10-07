@@ -18,27 +18,24 @@ export default function MapboxPage(props) {
     const [coordinates, setCoordinates] = useState([13.3983, 52.5124]);
     let locationLng;
     let locationLat;
-
+    let coord;
     // audio file locations
-    const [audioFileLocations, setAudioFileLocation] = useState(null);
+    const [audioFileLocations, setAudioFileLocations] = useState([]);
     let audioId;
     let audioTitle;
-    let audioCoords;
-
-
+    let audioPath;
     const API_URL = 'http://localhost:5005';
 
-    // get all coordinates from user to populate the map
+    // get all audio files + coordinates from user to populate the map
     const getAllAudioFiles = () => {
 		// get request to the server
 		axios.get(`${API_URL}/api/audiofiles`)
 			.then(response => {
 				// console.log(response.data)
-				setAudioFileLocation(response.data);
+				setAudioFileLocations(response.data);
 			})
-			.catch(err => console.log(err));
-	}
-    // from the coordinates - match the database
+			.catch(err => console.log(err));   
+	}  
 
     useEffect(() => {
         // initialize map only once
@@ -53,48 +50,40 @@ export default function MapboxPage(props) {
     }, []);
 
     // convert / forward geocode the input address to coordinates 
-    const convertAudioFileLocations = () => {
-        const inputCoords = [Math.round(coordinates[0] * 10)/10, Math.round(coordinates[1] * 10)/10 ];
-        // console.log(inputCoords);
-        const getAudioFileLocations = audioFileLocations.map((audioLocation) => {
-            return (
-                geocoder.forwardGeocode({
-                    query: audioLocation.location
-                })
-                .send()
-                .then(async response => {
-                    // get coordinates from first object of array (most accurate to address)
-                    const audioLocales = response.body.features[0]; 
-                    // console.log(audioLocales);
-                    
-                    // populate the coordinates
-                    const coord = [audioLocales.center[0], audioLocales.center[1]];
-                    audioId = audioLocation._id;
-                    audioTitle = audioLocation.title;
-                    await addMarker(coord, audioId, audioTitle);
-                    const audioCoordLng = Math.round(audioLocales.center[0] * 10)/10;
-                    const audioCoordLat = Math.round(audioLocales.center[1] * 10)/10;
-                    audioCoords = [audioCoordLng, audioCoordLat];
-                    return audioCoords;
-                })
-            )
-        } )
-        console.log(getAudioFileLocations);
+    const getAudioFileLocations = () => {
+        for (let i = 0;  i < audioFileLocations.length ; i++) {
+            geocoder.forwardGeocode({
+                query: audioFileLocations[i].location
+            })
+            .send()
+            // eslint-disable-next-line no-loop-func
+            .then((response) => {
+                // get coordinates from first object of array (most accurate to address)
+                const audioLocales = response.body.features[0]; 
+                // console.log(audioLocales);
+                // populate the coordinates
+                coord = [audioLocales.center[0], audioLocales.center[1]];
+                audioId = audioFileLocations[i]._id;
+                audioTitle = audioFileLocations[i].title;
+                audioPath = audioFileLocations[i].audioPath;
+                addMarker(coord, audioId, audioTitle, audioPath);
+            })
+        }
     }
-  
-    function addMarker(coord, id, audioTitle) {
-      // TODO: figure out why the :id is not working
-      const audioIdString = `/tones/${id}`;
-      new mapboxgl.Marker({
-        color: "red",
-      });
-      new mapboxgl.Popup({
-        closebutton: true,
-        closeOnClick: false,
-        closeOnMove: false,
-      })
-        .setHTML(
-          `<div><button><a href=${audioIdString}>${audioTitle}</a></button></div>`
+
+    function addMarker(coord, id, audioTitle, audioPath) {
+        const audioIdString = `/tones/${id}`;
+        new mapboxgl.Marker({
+            color: "red",
+        });
+        new mapboxgl.Popup({
+            closebutton: true,
+            closeOnClick: false,
+            closeOnMove: false,
+        })
+        .setHTML (
+            // Linking audio player instead
+            `<div><a href=${audioIdString}>${audioTitle}</a></div><div><audio src=${audioPath} controls /></div>`
         )
         .setLngLat(coord)
         .addTo(map.current);
@@ -103,12 +92,12 @@ export default function MapboxPage(props) {
     const handleSetLocation = e => { 
         e.preventDefault();
         setLocation(e.target.value)
-        // console.log(e.target.value);
     }
 
     const handleSubmit  = e => { 
         e.preventDefault();
-        convertAudioFileLocations();
+        getAudioFileLocations();
+        // convert address inputed by user
         geocoder.forwardGeocode({
             query: location,
         })
@@ -117,13 +106,10 @@ export default function MapboxPage(props) {
             // console.log(response.body.features[0].center)
             locationLng = response.body.features[0].center[0];
             locationLat = response.body.features[0].center[1];
-            setCoordinates(locationLng, locationLat);
             map.current.flyTo({center:[locationLng, locationLat], zoom: 15});
         });
     };
     
-    
-
     return (
         <>      
         <div ref={mapContainer} className="map-container">
@@ -133,8 +119,8 @@ export default function MapboxPage(props) {
             <div className="input-address">
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="location">Address</label>
+                    <button type="submit">Discover All Nabetones</button>
                     <input type="text" id="location" name="location" value={location} onChange={handleSetLocation} />
-                    <button type="submit">Find NabeTones in Your Area</button>
                </form>
             </div>
         </div>
