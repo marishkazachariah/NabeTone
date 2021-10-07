@@ -83,7 +83,6 @@ passport.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
 // end of passport configuration
 
 // app.use(
@@ -100,6 +99,15 @@ const audioFiles = require("./routes/audiofiles");
 app.use("/api/audiofiles", audioFiles);
 
 const auth = require("./routes/auth");
+
+const path = require('path');
+app.use(express.static(path.join(__dirname, "/client/build")));
+
+app.use((req, res) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + "/client/build/index.html");
+});
+
 app.use("/api/auth", auth);
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);

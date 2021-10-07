@@ -9,3 +9,6 @@ npm-debug.log
 
 # Client Dependency directory
 /client/node_modules
+
+# production
+/build
