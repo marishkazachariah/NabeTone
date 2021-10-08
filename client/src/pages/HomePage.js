@@ -5,7 +5,7 @@ export default function HomePage() {
     <div className="home-container">
       <h1>Welcome to NabeTone</h1>
       <p>
-        Temp: A project where people can record or listen to stories, memories,
+        A project where people can record or listen to stories, memories,
         sights and sounds about specific geographic locations. Listen to a story
         while experiencing being right where the story takes place. 
         <br></br>

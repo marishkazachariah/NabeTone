@@ -41,19 +41,30 @@ export default function UserAudioFilesPage(props) {
     <div>
       <h1>Hi {props.user.username}, Here are your Tones</h1>
       <div>
+      <div class="container" style={{marginTop:"8%"}}>
+      <div class="col-md-6 col-md-offset-3">
           <form>
+          <div >   
+          <div className="input-group rounded">
             <label htmlFor="audioTitle">Search by Name of NabeTone</label>
             <input type="search" name="audioTitle" id="audioTitle" placeholder="5 AM at Berghain" value={searchAudioFile} onChange={handleAudioFileNameChange} />
-            <div>
+            </div>
+            </div>
+            <div className="input-group rounded">
                 <label htmlFor="audioLocation">Search by Location</label>
                 <p>( Search by location only works depending on your exact address input )</p>
                 <input type="search" name="audioLocation" id="audioLocation" placeholder="Berlin" value={searchAudioFileLocation} onChange={handleAudioFileLocationChange} />
             </div>
           </form>
+          </div>
+          </div>
       </div>
+      
       {filteredAudioFiles.length !== 0 ? (
         filteredAudioFiles.map((audioFile) => (
-        <AudioFileCard key={audioFile._id} {...audioFile}></AudioFileCard>
+            <ul className="list-group">
+            <li className="list-group-item"><AudioFileCard key={audioFile._id} {...audioFile}></AudioFileCard></li>
+        </ul>
       ))
       ) : <h1>You have no Nabetones! <Link to="/tones/add">Add a Nabetone?</Link></h1>
       }

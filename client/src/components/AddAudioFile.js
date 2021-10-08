@@ -30,24 +30,42 @@ export default function AddAudioFile(props) {
   };
   
   return (
-    <div>
-      <h2>New NabeTone</h2>
+    <section className="vh-100"  style={{ backgroundColor: "#2a2d30" }}>
+    <div className="container py-5 h-100">
+    <div className="row d-flex justify-content-center align-items-center h-100">
+    <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+    <div className="card bg-dark text-white" style={{borderRadius: "1rem"}}>
+    <div className="card-body p-5 text-center">
+    <div className="mb-md-5 mt-md-4 pb-5">
+      <h2 className="fw-bold mb-2">Add New NabeTone</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="title">
+      <div className="form-outline form-white mb-4">
+        <label htmlFor="title" className="form-label">
             Title
-            <input type="text" id="title" placeholder="Sounds of Neukölln" name="title" value={title} onChange={e => setTitle(e.target.value)} />
+            <input type="text" id="title" className="form-control form-control-lg" placeholder="Sounds of Neukölln" name="title" value={title} onChange={e => setTitle(e.target.value)} />
         </label>
-        <p>Tip: Add City & Postal Code/ZIP/PLZ to place Nabetone accurately on the map.</p>
-        <label htmlFor="location">
+        </div>
+        <div className="form-outline form-white mb-4">
+        <label htmlFor="location" className="form-label">
             Location
-            <input type="text" id="location" placeholder="Karl Marx Straße 177" name="location" value={location} onChange={e => setLocation(e.target.value)} />
+            <p className="small pb-lg-2"><i>Tip: Add City & Postal Code/ZIP/PLZ to place Nabetone accurately on the map.</i></p>
+            <input type="text" id="location" className="form-control form-control-lg" placeholder="Karl Marx Straße 177" name="location" value={location} onChange={e => setLocation(e.target.value)} />
         </label>
-        <label htmlFor="file">
-        <input type='file' onChange={handleFileUpload} />
+        </div>
+        <div className="form-outline form-white mb-4">
+        <label htmlFor="file" className="form-label">
+        <input type='file' className="form-control" onChange={handleFileUpload} />
         {audioPath && <audio src={audioPath} controls />}
         </label>
-        <button type="submit">Add new NabeTone</button>
+        </div>
+        <button type="submit"  className="btn btn-outline-light btn-lg px-5">Add new NabeTone</button>
       </form>
-    </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+    </section>
   );
 }

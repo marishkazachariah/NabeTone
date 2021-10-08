@@ -32,8 +32,8 @@ export default function Navbar(props) {
             </>
           ) : (
             <>
-              <Link to="/">
-                <li className="nav-item-active">Home</li>
+              <Link to="/" className="nav-link active">
+                <li className="nav-item">Home</li>
               </Link>
               <Link to="/signup" className="nav-link">
                 <li className="nav-item">Signup</li>

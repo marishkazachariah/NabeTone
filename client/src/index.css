@@ -44,10 +44,34 @@ code {
   left: 0;
   border-radius: 4px;
 }
+
 .secret-button button {
   width: 36px;
   height: 36px;
   background: transparent;
   border: none !important;
   font-size:0;
+}
+
+.test-search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 500px;
+  margin-right: 500px;
+}
+
+.label-mapbox {
+  background-color: #212529;
+  display: block;
+    padding: 10px;
+    margin: 0px;
+}
+
+.bg-mapbox {
+  background-color: #212529;
+}
+
+.mapbox-form {
+ background-color: white;
 }

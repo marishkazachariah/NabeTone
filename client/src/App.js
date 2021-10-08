@@ -37,7 +37,7 @@ function App(props) {
           <Route exact path="/tones/edit/:id" component={EditAudioFilePage} />
           <Route exact path="/map" component={MapboxPage} />
       </Switch>
-      <footer>
+      <footer className="bg-dark text-center py-3 text-white">
         <p>Designed and built by Marishka Zachariah for Ironhack Berlin 2021</p>
       </footer>
     </div>

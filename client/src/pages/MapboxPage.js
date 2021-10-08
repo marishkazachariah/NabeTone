@@ -140,18 +140,25 @@ export default function MapboxPage(props) {
   }
   return (
     <>
+    <div className="bg-mapbox">
+    <div className="test-search">
         <div>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="location">Address</label>
+          <form onSubmit={handleSubmit} className="mapbox-form">
+            <label htmlFor="location" className="label-mapbox"></label>
             <input
               type="text"
+              className="form-control rounded p-2"
+              aria-label="Search"
+              aria-describedby="search-addon"
               id="location"
+              placeholder="Type in Address Here"
               name="location"
               value={location}
               onChange={handleSetLocation}
             />
-            <div><button type="submit">Discover Nabetones in Your Area</button></div>
+            <button className="btn btn-outline-dark" type="submit">Discover Nabetones in Your Area</button>
           </form>
+        </div>
         </div>
       <div ref={mapContainer} className="map-container">
         <div className="sidebar">
@@ -161,6 +168,7 @@ export default function MapboxPage(props) {
         <div className="secret-button">
         <button onClick={handleOnGeoLocate}>Test Click</button>
         </div>
+      </div>
       </div>
     </>
   );
