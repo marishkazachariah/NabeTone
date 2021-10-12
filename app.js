@@ -18,7 +18,8 @@ require("./config")(app);
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 // const DB_URL = 'mongodb://localhost/project-3';
-const DB_URL = 'mongodb+srv://nabetone:VDHzuZZ9jiidjPyx@cluster0.s6whh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+// const DB_URL = 'mongodb+srv://nabetone:VDHzuZZ9jiidjPyx@cluster0.s6whh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const DB_URL = process.env.MONGODB_URI;
 
 app.use(
 	session({
