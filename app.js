@@ -17,7 +17,8 @@ require("./config")(app);
 // session configuration
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-const DB_URL = 'mongodb://localhost/project-3';
+// const DB_URL = 'mongodb://localhost/project-3';
+const DB_URL = 'mongodb+srv://nabetone:VDHzuZZ9jiidjPyx@cluster0.s6whh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
 app.use(
 	session({
@@ -85,6 +86,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 // end of passport configuration
 
+// uncommenting this out for now
 // app.use(
 //     cors({
 //          origin: "http://localhost:3000", // allow to server to accept request from different origin
@@ -100,13 +102,14 @@ app.use("/api/audiofiles", audioFiles);
 
 const auth = require("./routes/auth");
 
-// const path = require('path');
-// app.use(express.static(path.join(__dirname, "/client/build")));
+// for heroku deployment
+const path = require('path');
+app.use(express.static(path.join(__dirname, "/client/build")));
 
-// app.use((req, res) => {
-//   // If no routes match, send them the React HTML.
-//   res.sendFile(__dirname + "/client/build/index.html");
-// });
+app.use((req, res) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + "/client/build/index.html");
+});
 
 app.use("/api/auth", auth);
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
