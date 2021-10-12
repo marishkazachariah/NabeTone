@@ -102,6 +102,8 @@ app.use("/api/audiofiles", audioFiles);
 
 const auth = require("./routes/auth");
 
+app.use("/api/auth", auth);
+
 // for heroku deployment
 const path = require('path');
 app.use(express.static(path.join(__dirname, "/client/build")));
@@ -111,7 +113,6 @@ app.use((req, res) => {
   res.sendFile(__dirname + "/client/build/index.html");
 });
 
-app.use("/api/auth", auth);
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 
